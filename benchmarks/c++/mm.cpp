@@ -22,31 +22,21 @@
 #define FORC(i,j,c) for(int i=0;i<j;i+=c)
 
 using namespace std;
+const int max_dim = 1010;
 
-struct mm{
-    vector< vector<int> > m;
-    mm operator*(const mm &ot) const{
-        mm ans;
-        int sz1 = m.size();
-        int sz2 = ot.m.size();
-        ans.m = vector< vector<int> >(sz1,vector<int>(ot.m[0].size(),0));
-        FOR(i,sz1)
-            FOR(j,ot.m[0].size())
-                FOR(k,sz2) ans.m[i][j]+=m[i][k]*ot.m[k][j]; 
-        return ans;
-    }
-};
-mm matriz,matriz2;
-vector<int> fila;
+int matriz[max_dim][max_dim],matriz3[max_dim][max_dim];
+
 int main(int argc, char* argv[]){
     int dim = atoi(argv[1]);
-    FOR(i,dim) fila.push_back(2);
-    FOR(i,dim) matriz.m.push_back(fila);
-    FOR(i,dim) matriz2.m.push_back(fila);
-    matriz = matriz*matriz2;
+    FOR(i,dim) FOR(j,dim) matriz[i][j] = 2;
+    FOR(i,dim) 
+        FOR(k,dim) 
+            FOR(j,dim) 
+                matriz3[i][j] += matriz[i][k]*matriz[k][j];
+
     FOR(i,dim) {
-        FOR(j,dim) cout << matriz.m[i][j] <<" ";
-        cout << endl;
+        FOR(j,dim) printf("%d ",matriz3[i][j]);
+        printf("\n");
     }
 
 	return 0;
